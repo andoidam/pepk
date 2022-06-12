@@ -42,10 +42,16 @@ class KeystoreHelper {
   public KeyStore loadKeystore(Path keystorePath, @Nullable char[] storePass)
       throws GeneralSecurityException, IOException {
     if (storePass == null) {
-      storePass =
-          System.console()
-              .readPassword(
-                  String.format("Enter password for store '%s':", keystorePath.getFileName()));
+
+      if(ExportEncryptedPrivateKeyTool.STOREPASS == null){
+        storePass =
+                System.console()
+                        .readPassword(
+                                String.format("Enter password for store '%s':", keystorePath.getFileName()));
+      }else{
+        storePass = ExportEncryptedPrivateKeyTool.STOREPASS;
+      }
+
     }
 
     KeyStore keyStore = KeyStore.getInstance("jks");
@@ -58,7 +64,12 @@ class KeystoreHelper {
   private PrivateKey extractPrivateKey(KeyStore ks, String alias, @Nullable char[] keyPass)
       throws GeneralSecurityException {
     if (keyPass == null) {
-      keyPass = System.console().readPassword(String.format("Enter password for key '%s':", alias));
+      if(ExportEncryptedPrivateKeyTool.STOREPASS == null){
+        keyPass = System.console().readPassword(String.format("Enter password for key '%s':", alias));
+      }else{
+        keyPass = ExportEncryptedPrivateKeyTool.KEYPASS;
+      }
+
     }
     return checkNotNull((PrivateKey) ks.getKey(alias, keyPass), "No key for alias: " + alias);
   }
