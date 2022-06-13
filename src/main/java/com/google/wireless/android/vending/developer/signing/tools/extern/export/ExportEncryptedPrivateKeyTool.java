@@ -87,11 +87,15 @@ public class ExportEncryptedPrivateKeyTool {
         try {
             Map<String, String> parsedFlags = Utils.processArgs(args);
 
-            if (getFlagValue(parsedFlags, FLAG_STOREPASS) != null && !getFlagValue(parsedFlags, FLAG_STOREPASS).isEmpty())
-                STOREPASS = getFlagValue(parsedFlags, FLAG_STOREPASS).toCharArray();
+            String val = getFlagValue(parsedFlags, FLAG_STOREPASS);
 
-            if (getFlagValue(parsedFlags, FLAG_KEYPASS) != null && !getFlagValue(parsedFlags, FLAG_KEYPASS).isEmpty())
-                KEYPASS = getFlagValue(parsedFlags, FLAG_KEYPASS).toCharArray();
+            if (val != null && !val.isEmpty())
+                STOREPASS = val.toCharArray();
+
+            val = getFlagValue(parsedFlags, FLAG_KEYPASS);
+
+            if (val != null && !val.isEmpty())
+                KEYPASS = val.toCharArray();
 
             keystoreFile = getFlagValue(parsedFlags, FLAG_KEYSTORE);
             alias = getFlagValue(parsedFlags, FLAG_ALIAS);

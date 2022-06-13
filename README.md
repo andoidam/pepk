@@ -6,6 +6,10 @@
 
 editing
 
+Adding alias key password and keystore password in the command line
+
+--storepass aPassWord --keypass aPassword
+
 pepk (Play Encrypt Private Key) is a tool for exporting private keys from a
 Java Keystore and encrypting them for transfer to Google Play as part of
 enrolling in App Signing by Google Play.
